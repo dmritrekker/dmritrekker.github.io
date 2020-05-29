@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Contact &mdash; trekker 0.6 documentation</title>
+  <title>How to set parameters? &mdash; trekker 0.6 documentation</title>
   
 
   
@@ -29,7 +29,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Acknowledgements" href="acknowledgements.html" /> 
+    <link rel="next" title="How to cite?" href="../publications/publications.html" />
+    <link rel="prev" title="trekker" href="../manual/trekker.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -131,10 +132,10 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Tips</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tips/tip1.html">How to set parameters?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tips/tip1.html#basic-parameter-setting-tips">Basic parameter setting tips</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tips/tip1.html#advanced-parameter-setting-tips">Advanced parameter setting tips</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to set parameters?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-parameter-setting-tips">Basic parameter setting tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-parameter-setting-tips">Advanced parameter setting tips</a></li>
 </ul>
 </li>
 </ul>
@@ -143,10 +144,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../publications/publications.html">How to cite?</a></li>
 </ul>
 <p class="caption"><span class="caption-text">About</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="licenseAndWarranty.html">License and warranty</a></li>
-<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Contact</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/licenseAndWarranty.html">License and warranty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/contact.html">Contact</a></li>
 </ul>
 
             
@@ -192,13 +193,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Contact</li>
+      <li>How to set parameters?</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/about/contact.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tips/tip1.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -211,9 +212,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="contact">
-<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h1>
-<p>Please contact <a class="reference external" href="mailto:baran&#46;aydogan&#37;&#52;&#48;aalto&#46;fi">baran<span>&#46;</span>aydogan<span>&#64;</span>aalto<span>&#46;</span>fi</a> for questions and feedback.</p>
+  <div class="section" id="how-to-set-parameters">
+<h1>How to set parameters?<a class="headerlink" href="#how-to-set-parameters" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Parallel transport tractography (PTT) works different than other probabilistic techniques</strong></p>
+<p>This implies that your experience with other algorithms do not directly translate to Trekker’s approach. Read below for more information.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Default streamline maxLength in Trekker is infinite</strong></p>
+<p>Before telling about PTT related parameters, it is important to note that in Trekker we set <strong>maxLength</strong> to infinite by default. This was done simply because it is not possible to estimate the maximum streamline length from input images. So please always adjust this parameter according to your application.</p>
+</div>
+<div class="section" id="basic-parameter-setting-tips">
+<h2>Basic parameter setting tips<a class="headerlink" href="#basic-parameter-setting-tips" title="Permalink to this headline">¶</a></h2>
+<p>To save time, start with tracking a small number of streamlines with default parameters. You can see the default values for your dataset on your terminal screen or in the .json file saved in the output.</p>
+<p>Trekker’s default parameter combinations generally result with good coverage of fiber bundles with well organized streamlines. However by adjusting the parameters you can improve the results. Basically you can go towards two directions:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>A.</strong> make the streamlines more organized, this could come with loss of bundle coverage</div>
+<div class="line"><strong>B.</strong> cover more of the bundle, then you could lose the organization of streamlines</div>
+</div>
+</div></blockquote>
+<p>To go towards direction A:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>1.</strong> decrease <em>stepSize</em></div>
+<div class="line"><strong>2.</strong> increase <em>probeLength</em></div>
+<div class="line"><strong>3.</strong> increase <em>minRadiusOfCurvature</em></div>
+<div class="line"><strong>4.</strong> increase <em>minFODamp</em></div>
+</div>
+</div></blockquote>
+<p>Doing the opposite will go towards direction <strong>B</strong>. Try small adjustments for all the parameters rather than making a large modification for a single parameter.</p>
+</div>
+<div class="section" id="advanced-parameter-setting-tips">
+<h2>Advanced parameter setting tips<a class="headerlink" href="#advanced-parameter-setting-tips" title="Permalink to this headline">¶</a></h2>
+<p>Below are some tips for tracking connections in healthy adult human brains that are typically acquired with voxel dimensions around 1.25-2 mm isotropic. (The values mentioned below might not apply to other types of brains but the relationships between parameters still hold.)</p>
+<ul class="simple">
+<li><p>Try to use small a <strong>stepSize</strong>. This value can be 0.05 or below. With higher values, bundle organization will be compromised.</p></li>
+<li><p><strong>minRadiusOfCurvature</strong> values between 0.5-1 mm are generally sufficient for tracking connections in the adult human brain. While the default <em>minRadiusOfCurvature</em> is half the voxel size, you might want to go lower than this if you are after bundles which have sharp turns.</p></li>
+<li><p>In PTT algorithm, <strong>probeLength</strong> is a very important parameter. Try to make sure that this value does not exceed <em>minRadiusOfCurvature</em>. Notice that 2*pi*minRadiusOfCurvature is the smallest circle one can track and <em>probeLength</em> shouldn’t trace a long part of it. A very long <em>probeLength</em> could lead the tracker to make loops or take sharp, incorrect turns at crossing fiber arrangements. A <em>probeLength</em> value about half of <em>minRadiusOfCurvature</em> is adequate.</p></li>
+<li><p>We designed PTT to preserve topographic organization of connections. So one can use pretty low <strong>minFODamp</strong> values such as 0.025 or even 0.01 without losing much from streamline organization. This allows to get better coverage of the fiber bundles or help track intricate and challenging connections. You may however need to provide good anatomical constraints to reduce false positives.</p></li>
+<li><p>If you have problems with data quality, set the <strong>probeRadius</strong> to the value used for <em>minRadiusOfCurvature</em>. Using a topographically organized cylindrical probe model is particularly effective to mitigate noise in FOD. However, this will slow down the tracking.</p></li>
+<li><p>If you have luxurious computational resources, you can increase <strong>probeQuality</strong> and <strong>probeCount</strong> to improve the probe model and fiber tracking results.</p></li>
+</ul>
+</div>
 </div>
 
 
@@ -224,8 +267,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../publications/publications.html" class="btn btn-neutral float-right" title="How to cite?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="acknowledgements.html" class="btn btn-neutral" title="Acknowledgements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="../manual/trekker.html" class="btn btn-neutral" title="trekker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
