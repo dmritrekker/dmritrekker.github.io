@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>map2img &#8212; trekker 1.0b documentation</title>
+    <title>track2surf &#8212; trekker 1.0b documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
     <script src="../_static/documentation_options.js?v=c9538944"></script>
@@ -13,8 +13,8 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="map2surf" href="map2surf.html" />
-    <link rel="prev" title="filter" href="filter.html" />
+    <link rel="next" title="img2track" href="img2track.html" />
+    <link rel="prev" title="track2img" href="track2img.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -32,14 +32,14 @@
 
           <div class="body" role="main">
             
-  <section id="map2img">
-<h1>map2img<a class="headerlink" href="#map2img" title="Link to this heading">¶</a></h1>
-<p>maps tractogram features on an image</p>
+  <section id="track2surf">
+<h1>track2surf<a class="headerlink" href="#track2surf" title="Link to this heading">¶</a></h1>
+<p>maps tractogram features on a surface</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p><strong>Usage</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./trekker<span class="w"> </span>map2img<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>&lt;input<span class="w"> </span>tractogram&gt;<span class="w"> </span>&lt;output<span class="w"> </span>image&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./trekker<span class="w"> </span>track2surf<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>&lt;input<span class="w"> </span>tractogram&gt;<span class="w"> </span>&lt;input<span class="w"> </span>surface<span class="w"> </span>mesh&gt;<span class="w"> </span>&lt;output<span class="w"> </span>surface<span class="w"> </span>mesh&gt;<span class="w"> </span>&lt;field<span class="w"> </span>name&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -49,8 +49,12 @@
 <ul class="simple">
 <li><p><cite>&lt;input tractogram&gt; TEXT:FILE REQUIRED</cite>
 Input tractogram (.vtk, .tck)</p></li>
-<li><p><cite>&lt;output image&gt; TEXT REQUIRED</cite>
-Output image name (.nii, .nii.gz)</p></li>
+<li><p><cite>&lt;input surface mesh&gt; TEXT:FILE REQUIRED</cite>
+Input surface mesh (.vtk, .gii)</p></li>
+<li><p><cite>&lt;output surface mesh&gt; TEXT REQUIRED</cite>
+Output surface mesh (.vtk)</p></li>
+<li><p><cite>&lt;field name&gt; TEXT REQUIRED</cite>
+Field name to use when writing the feature on the surface mesh</p></li>
 </ul>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -61,53 +65,9 @@ Output image name (.nii, .nii.gz)</p></li>
         <th style="padding: 8px; border-bottom: 1px solid #000; border-top: 1px solid #000;">Option</th>
         <th style="padding: 8px; border-bottom: 1px solid #000; border-top: 1px solid #000;">Description</th>
     </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="padding: 8px; font-weight: 500;">--feature TEXT</td>
-        <td style="padding: 8px;">Name of output feature. Options are: "streamlineCount", "segmentLength" or "DEC_SegmentLength".</td>
-    </tr>
     <tr>
-        <td style="padding: 8px; font-weight: 500;">--weights TEXT:FILE</td>
-        <td style="padding: 8px;">A binary file for streamline weights. Values should have float datatype.</td>
-    </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="padding: 8px; font-weight: 500;">--anisotropicSmoothing [FLOAT,INT]</td>
-        <td style="padding: 8px;">Standard deviation of the Gaussian kernel, and computation density for anisotropic smoothing. Default=0 0.</td>
-    </tr>
-    <tr>
-        <td style="padding: 8px; font-weight: 500;">--SF INT</td>
-        <td style="padding: 8px;">Spherical domain detail. This value should be a positive odd integer up to 31.</td>
-    </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="padding: 8px; font-weight: 500;">--SF_smoothing FLOAT</td>
-        <td style="padding: 8px;">Apply spherical smoothing.</td>
-    </tr>
-    <tr>
-        <td style="padding: 8px; font-weight: 500;">--SH INT</td>
-        <td style="padding: 8px;">Order of spherical harmonics function. Only even orders are supported.</td>
-    </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="padding: 8px; font-weight: 500;">-t, --template TEXT:FILE</td>
-        <td style="padding: 8px;">Input template image (.nii/.nii.gz).</td>
-    </tr>
-    <tr>
-        <td style="padding: 8px; font-weight: 500;">--templateUpsample FLOAT</td>
-        <td style="padding: 8px;">Upsampling factor for template image.</td>
-    </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="padding: 8px; font-weight: 500;">-b, --bbox FLOAT ...</td>
-        <td style="padding: 8px;">Bounding box for the output image.<br>Options are:<br>(i) "x_min x_max y_min y_max z_min z_max" (an isotropic voxel dimension of 1 will be assumed.)<br>(ii) "x_min x_max y_min y_max z_min z_max voxDim" (an isotropic voxel dimension of voxDim will be assumed.)<br>(iii) "x_min x_max y_min y_max z_min z_max xVoxDim yVoxDim zVoxDim"</td>
-    </tr>
-    <tr>
-        <td style="padding: 8px; font-weight: 500;">--voxDim FLOAT ...</td>
-        <td style="padding: 8px;">Voxel dimension of the output image.<br>Options are:<br>(i) a single value that will be used for all dimensions<br>(ii) one value for each of the three dimensions separated by space.</td>
-    </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="padding: 8px; font-weight: 500;">--mask TEXT:FILE</td>
-        <td style="padding: 8px;">Input mask image (.nii/.nii.gz).</td>
-    </tr>
-    <tr>
-        <td style="padding: 8px; font-weight: 500;">--maskLabel INT</td>
-        <td style="padding: 8px;">Label to use in the mask image.</td>
+        <td style="padding: 8px; font-weight: 500;">--feature TEXT REQUIRED</td>
+        <td style="padding: 8px;">Name of output feature. Options are: "streamlineDensity", "streamlineCount", "contactAngle" and "contactDirection".</td>
     </tr>
 </table><div class="line-block">
 <div class="line"><br /></div>
@@ -134,25 +94,7 @@ Output image name (.nii, .nii.gz)</p></li>
         <td style="padding: 8px; font-weight: 500; border-bottom: 1px solid #000;">-f, --force</td>
         <td style="padding: 8px; border-bottom: 1px solid #000;">Force overwriting of existing file.</td>
     </tr>
-</table><div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><strong>References</strong></p>
-<p>For uses without spherical mapping, please cite <a class="reference internal" href="#calamante2010" id="id1"><span>[Calamante2010]</span></a>, which provides detailed information on Track-density imaging (TDI).</p>
-<div role="list" class="citation-list">
-<div class="citation" id="calamante2010" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">Calamante2010</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S1053811910009766">Calamante, F.; Tournier, J.-D.; Jackson, G. D. &amp; Connelly, A. “Track-density imaging (TDI): Super-resolution white matter imaging using whole-brain track-density mapping”, NeuroImage, 2010, 53, 1233-1243.</a></p>
-</div>
-</div>
-<p>For uses with spherical mapping, please cite <a class="reference internal" href="#dhollander2014" id="id2"><span>[Dhollander2014]</span></a>, which explains Track Orientation Density Imaging (TODI) and Track Orientation Distribution (TOD) based tractography.</p>
-<div role="list" class="citation-list">
-<div class="citation" id="dhollander2014" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Dhollander2014</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S1053811913012676">Dhollander, T., Emsell, L., Van Hecke, W., Maes, F., Sunaert, S., Suetens, P. “Track Orientation Density Imaging (TODI) and Track Orientation Distribution (TOD) based tractography”, NeuroImage, 2014, 94, 312-336.</a></p>
-</div>
-</div>
-</section>
+</table></section>
 
 
           </div>
@@ -175,9 +117,9 @@ Output image name (.nii, .nii.gz)</p></li>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="track.html">track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filter.html">filter</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">map2img</a></li>
-<li class="toctree-l1"><a class="reference internal" href="map2surf.html">map2surf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="map2track.html">map2track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track2img.html">track2img</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">track2surf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="img2track.html">img2track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="select.html">select</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resample.html">resample</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a></li>
@@ -208,7 +150,7 @@ Output image name (.nii, .nii.gz)</p></li>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
-      <a href="../_sources/commands/map2img.rst.txt"
+      <a href="../_sources/commands/track2surf.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

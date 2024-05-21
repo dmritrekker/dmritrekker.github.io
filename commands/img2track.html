@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>map2surf &#8212; trekker 1.0b documentation</title>
+    <title>img2track &#8212; trekker 1.0b documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
     <script src="../_static/documentation_options.js?v=c9538944"></script>
@@ -13,8 +13,8 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="map2track" href="map2track.html" />
-    <link rel="prev" title="map2img" href="map2img.html" />
+    <link rel="next" title="select" href="select.html" />
+    <link rel="prev" title="track2surf" href="track2surf.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -32,14 +32,14 @@
 
           <div class="body" role="main">
             
-  <section id="map2surf">
-<h1>map2surf<a class="headerlink" href="#map2surf" title="Link to this heading">¶</a></h1>
-<p>maps tractogram features on a surface</p>
+  <section id="img2track">
+<h1>img2track<a class="headerlink" href="#img2track" title="Link to this heading">¶</a></h1>
+<p>maps image values on a tractogram</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p><strong>Usage</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./trekker<span class="w"> </span>map2surf<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>&lt;input<span class="w"> </span>tractogram&gt;<span class="w"> </span>&lt;input<span class="w"> </span>surface<span class="w"> </span>mesh&gt;<span class="w"> </span>&lt;output<span class="w"> </span>surface<span class="w"> </span>mesh&gt;<span class="w"> </span>&lt;field<span class="w"> </span>name&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./trekker<span class="w"> </span>img2track<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>&lt;input<span class="w"> </span>image&gt;<span class="w"> </span>&lt;input<span class="w"> </span>tractogram&gt;<span class="w"> </span>&lt;output<span class="w"> </span>file<span class="w"> </span>name&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -47,14 +47,12 @@
 </div>
 <p><strong>Positionals</strong></p>
 <ul class="simple">
+<li><p><cite>&lt;input image&gt; TEXT:FILE REQUIRED</cite>
+Input image (.nii, .nii.gz)</p></li>
 <li><p><cite>&lt;input tractogram&gt; TEXT:FILE REQUIRED</cite>
 Input tractogram (.vtk, .tck)</p></li>
-<li><p><cite>&lt;input surface mesh&gt; TEXT:FILE REQUIRED</cite>
-Input surface mesh (.vtk, .gii)</p></li>
-<li><p><cite>&lt;output surface mesh&gt; TEXT REQUIRED</cite>
-Output surface mesh (.vtk)</p></li>
-<li><p><cite>&lt;field name&gt; TEXT REQUIRED</cite>
-Field name to use when writing the feature on the surface mesh</p></li>
+<li><p><cite>&lt;output file name&gt; TEXT REQUIRED</cite>
+Output file name. Output is a float32 type binary file.</p></li>
 </ul>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -66,8 +64,16 @@ Field name to use when writing the feature on the surface mesh</p></li>
         <th style="padding: 8px; border-bottom: 1px solid #000; border-top: 1px solid #000;">Description</th>
     </tr>
     <tr>
-        <td style="padding: 8px; font-weight: 500;">--feature TEXT REQUIRED</td>
-        <td style="padding: 8px;">Name of output feature. Options are: "streamlineDensity", "streamlineCount", "contactAngle" and "contactDirection".</td>
+        <td style="padding: 8px; font-weight: 500;">--SH</td>
+        <td style="padding: 8px;">Treat the image as a 4D spherical harmonics image.</td>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+        <td style="padding: 8px; font-weight: 500;">--SF</td>
+        <td style="padding: 8px;">Treat the image as a 4D spherical function image.</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px; font-weight: 500;">--SF_smoothing FLOAT</td>
+        <td style="padding: 8px;">Apply spherical smoothing before using the spherical function.</td>
     </tr>
 </table><div class="line-block">
 <div class="line"><br /></div>
@@ -117,9 +123,9 @@ Field name to use when writing the feature on the surface mesh</p></li>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="track.html">track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filter.html">filter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="map2img.html">map2img</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">map2surf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="map2track.html">map2track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track2img.html">track2img</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track2surf.html">track2surf</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">img2track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="select.html">select</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resample.html">resample</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a></li>
@@ -150,7 +156,7 @@ Field name to use when writing the feature on the surface mesh</p></li>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
-      <a href="../_sources/commands/map2surf.rst.txt"
+      <a href="../_sources/commands/img2track.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
