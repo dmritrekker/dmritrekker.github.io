@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tutorial &#8212; trekker 1.0b documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=c9538944"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pathways" href="pathways.html" />
+    <link rel="prev" title="Trekker" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading">¶</a></h1>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
+<p>Trekker does not have a graphical user interface. In order to use it, you need to run the <code class="code docutils literal notranslate"><span class="pre">trekker</span></code> executable in a terminal. Running <code class="code docutils literal notranslate"><span class="pre">trekker</span></code> alone shows the manual for the executable.</p>
+<p>The example below shows probably the simplest approach to obtain a whole brain tractogram using trekker.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">trekker</span> <span class="n">track</span> \
+     <span class="n">FOD</span><span class="o">.</span><span class="n">nii</span><span class="o">.</span><span class="n">gz</span> \                <span class="c1"># Input FOD image</span>
+     <span class="o">--</span><span class="n">seed</span> <span class="n">WHITEMATTER</span><span class="o">.</span><span class="n">nii</span><span class="o">.</span><span class="n">gz</span> \ <span class="c1"># Input seed image</span>
+     <span class="o">--</span><span class="n">seed_count</span> <span class="mi">1000</span> \         <span class="c1"># Number of random seeds to generate</span>
+     <span class="o">--</span><span class="n">output</span> <span class="n">OUTPUT</span><span class="o">.</span><span class="n">vtk</span>         <span class="c1"># Output</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">track</span></code> sets all unspecified parameters to default values which are indicated in the <a class="reference external" href="../commands/track.html">command description</a>; however the user must provide the following:</p>
+<ul class="simple">
+<li><p><strong>FOD image</strong></p></li>
+<li><p><strong>seed</strong></p></li>
+<li><p><strong>a seed count</strong>, <strong>seed count per voxel</strong> or <strong>time limit</strong>: if a seed image is specified, <strong>-seed_count</strong> or <strong>-seed_countPerVoxel</strong> options specify the number of streamlines to compute. Trekker generates 1 streamline per seed. If none of the two parameters were specified then <strong>runTimeLimit</strong> option must be used to limit the duration of tracking. Tracking stops either when the required number of streamlines are reconstructed or the time limit is reached, whichever comes first. When tracking stops due to time limit, all the streamlines that are computed so far are written to the disk.</p></li>
+</ul>
+<p>During tracking, Trekker displays information on the terminal screen showing the parameters as well as the progress.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Trekker does not require input nifti files to be in the same image space, i.e., spatial dimensions of the FOD image can be 100x100x100 and the seed image can be 128x128x60. As long as images are in the same physical space (based on nifti sform), Trekker will handle nifti files with different headers. This is valid also for images used to specify pathway rules.</p>
+</div>
+</section>
+<section id="basic-tips">
+<h2>Basic tips<a class="headerlink" href="#basic-tips" title="Link to this heading">¶</a></h2>
+<p>To save time, start with tracking a small number of streamlines with default parameters. You can see the default values for your dataset on your terminal screen.</p>
+<p>Trekker’s default parameter combinations generally result with good coverage of fiber bundles with well organized streamlines. However by adjusting the parameters you can improve the results. Basically you can go towards two directions:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>i.</strong> make the streamlines more organized, this could come with loss of bundle coverage</div>
+<div class="line"><strong>ii.</strong> cover more of the bundle, then you could lose the organization of streamlines</div>
+</div>
+</div></blockquote>
+<p>To go towards direction i:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>1.</strong> decrease <em>stepSize</em></div>
+<div class="line"><strong>2.</strong> increase <em>probeLength</em></div>
+<div class="line"><strong>3.</strong> increase <em>minRadiusOfCurvature</em></div>
+<div class="line"><strong>4.</strong> increase <em>minDataSupport</em></div>
+</div>
+</div></blockquote>
+<p>Doing the opposite will go towards direction <strong>ii</strong>. Try small adjustments for all the parameters rather than making a large modification for a single parameter.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Default streamline maxLength in Trekker is infinite</strong></p>
+<p>This was done simply because it is not possible to estimate the maximum streamline length from input images. So please always adjust this parameter according to your application.</p>
+</div>
+</section>
+<section id="advanced-tips">
+<h2>Advanced tips<a class="headerlink" href="#advanced-tips" title="Link to this heading">¶</a></h2>
+<p>Below are some tips for tracking connections in healthy adult human brains that are typically acquired with voxel dimensions around 1.25-2 mm isotropic. (The values mentioned below might not apply to other types of brains but the relationships between parameters still hold.)</p>
+<ul class="simple">
+<li><p>Try to use small a <strong>stepSize</strong>. This value can be 0.05 or below. With higher values, bundle organization will be compromised.</p></li>
+<li><p><strong>minRadiusOfCurvature</strong> values between 0.5-1 mm are generally sufficient for tracking connections in the adult human brain. While the default <em>minRadiusOfCurvature</em> is half the voxel size, you might want to go lower than this if you are after bundles which have sharp turns.</p></li>
+<li><p>In PTT algorithm, <strong>probeLength</strong> is a very important parameter. Try to make sure that this value does not exceed <em>minRadiusOfCurvature</em>. Notice that 2*pi*minRadiusOfCurvature is the smallest circle one can track and <em>probeLength</em> shouldn’t trace a long part of it. A very long <em>probeLength</em> could lead the tracker to make loops or take sharp, incorrect turns at crossing fiber arrangements. A <em>probeLength</em> value about half of <em>minRadiusOfCurvature</em> is adequate.</p></li>
+<li><p>We designed PTT to preserve topographic organization of connections. So one can use pretty low <strong>minDataSupport</strong> values such as 0.025 or even 0.01 without losing much from streamline organization. This allows to get better coverage of the fiber bundles or help track intricate and challenging connections. You may however need to provide good anatomical constraints to reduce false positives.</p></li>
+<li><p>If you have problems with data quality, set the <strong>probeRadius</strong> to the value used for <em>minRadiusOfCurvature</em>. Using a topographically organized cylindrical probe model is particularly effective to mitigate noise in FOD. However, this will slow down the tracking.</p></li>
+<li><p>If you have luxurious computational resources, you can increase <strong>probeQuality</strong> and <strong>probeCount</strong> to improve the probe model and fiber tracking results.</p></li>
+</ul>
+</section>
+<section id="visualizing-results">
+<h2>Visualizing results<a class="headerlink" href="#visualizing-results" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Trekker can save tractograms in binary formatted <strong>.vtk</strong> files.</p></li>
+<li><p>All streamlines are saved in the physical coordinate space (based on sform fetched from the header of input FOD nifti).</p></li>
+<li><p><strong>.vtk</strong> files can be visualized using several third party software including <a class="reference external" href="https://www.paraview.org/">Paraview</a>, <a class="reference external" href="https://www.slicer.org/">3DSlicer</a> and <a class="reference external" href="http://cabeen.io/qitwiki">Qit</a>.</p></li>
+</ul>
+<p>Paraview interface is very simple to use and it provides professional 3D rendering capability. Trekker output can be visualized simply by dragging and dropping the <strong>.vtk</strong> file into Paraview window.</p>
+<p>Below are examples drawn by Paraview using the trekker command shown in this tutorial applied on the Human Connectome Project subject 100307.</p>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="../_images/tut1_0.jpg"><img alt="Paraview rendering 1" src="../_images/tut1_0.jpg" style="width: 555.0px; height: 411.5px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Paraview by default renders streamlines using a solid (single) color.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="../_images/tut1_1.jpg"><img alt="Paraview rendering 2" src="../_images/tut1_1.jpg" style="width: 555.0px; height: 411.5px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">It is possible to display tractograms in the familiar direction coded RGB scheme as shown here. With trekker you write the segment colors using the <a class="reference external" href="../commands/addColor.html">addColor</a> command. Notice that by default colors are not written in order to save hard drive space. To show the segment colors, please select <em>RGB</em> as the coloring option in Paraview and make sure that <strong>Map Scalars</strong> option is <strong>NOT</strong> selected.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="../_images/tut1_2.jpg"><img alt="Paraview rendering 2" src="../_images/tut1_2.jpg" style="width: 555.0px; height: 411.5px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Streamlines can also be rendered as tubes with Paraview. For this option go to Filters-&gt;Search-&gt; Write &quot;tube&quot; in the search box and click enter.</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-tips">Basic tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-tips">Advanced tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualizing-results">Visualizing results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathways.html">Pathways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FOD.html">FOD</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Commands</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../commands/track.html">track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/filter.html">filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/map2img.html">map2img</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/map2surf.html">map2surf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/map2track.html">map2track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/select.html">select</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/resample.html">resample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/convert.html">convert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/transform.html">transform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/diff.html">diff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/merge.html">merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/addColor.html">addColor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/fieldExport.html">fieldExport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/fieldImport.html">fieldImport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/fieldRemove.html">fieldRemove</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/licenseAndWarranty.html">License and warranty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Dogu Baran Aydogan.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/guide/tutorial.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

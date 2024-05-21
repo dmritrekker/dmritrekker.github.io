@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>diff &#8212; trekker 1.0b documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=c9538944"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="merge" href="merge.html" />
+    <link rel="prev" title="transform" href="transform.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="diff">
+<h1>diff<a class="headerlink" href="#diff" title="Link to this heading">¶</a></h1>
+<p>finds different streamlines between two tractograms</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Usage</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./trekker<span class="w"> </span>diff<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>&lt;input<span class="w"> </span>tractogram&gt;<span class="w"> </span>&lt;reference<span class="w"> </span>tractogram&gt;
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Positionals</strong></p>
+<ul class="simple">
+<li><p><cite>&lt;input tractogram&gt; TEXT:FILE REQUIRED</cite>
+Input tractogram (.vtk, .tck)</p></li>
+<li><p><cite>&lt;reference tractogram&gt; TEXT:FILE REQUIRED</cite>
+Reference tractogram (.vtk, .tck)</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Options</strong></p>
+<table style="width: 100%; border-collapse: collapse;">
+    <tr style="background-color: #f2f2f2;">
+        <th style="padding: 8px; border-bottom: 1px solid #000; border-top: 1px solid #000;">Option</th>
+        <th style="padding: 8px; border-bottom: 1px solid #000; border-top: 1px solid #000;">Description</th>
+    </tr>
+    <tr>
+        <td style="padding: 8px; font-weight: 500;">-d, --out_diff TEXT</td>
+        <td style="padding: 8px;">Output streamlines of input tractogram that does not exist in the reference (.vtk, .tck).</td>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+        <td style="padding: 8px; font-weight: 500;">-s, --out_same TEXT</td>
+        <td style="padding: 8px;">Output streamlines of input tractogram that exists in the reference (.vtk, .tck).</td>
+    </tr>
+</table><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>General options</strong></p>
+<table style="width: 100%; border-collapse: collapse;">
+    <tr style="background-color: #f2f2f2;">
+        <th style="padding: 8px; border-bottom: 1px solid #000; border-top: 1px solid #000;">Option</th>
+        <th style="padding: 8px; border-bottom: 1px solid #000; border-top: 1px solid #000;">Description</th>
+    </tr>
+    <tr>
+        <td style="padding: 8px; font-weight: 500;">-h, --help</td>
+        <td style="padding: 8px;">Print this help message and exit.</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px; font-weight: 500;">-n, --numberOfThreads INT</td>
+        <td style="padding: 8px;">Number of threads.</td>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+        <td style="padding: 8px; font-weight: 500;">-v, --verbose TEXT</td>
+        <td style="padding: 8px;">Verbose level. Options are "quiet", "fatal", "error", "warn", "info", and "debug". Default=info.</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px; font-weight: 500; border-bottom: 1px solid #000;">-f, --force</td>
+        <td style="padding: 8px; border-bottom: 1px solid #000;">Force overwriting of existing file.</td>
+    </tr>
+</table></section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/pathways.html">Pathways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/FOD.html">FOD</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Commands</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="track.html">track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="map2img.html">map2img</a></li>
+<li class="toctree-l1"><a class="reference internal" href="map2surf.html">map2surf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="map2track.html">map2track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="select.html">select</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resample.html">resample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transform.html">transform</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">diff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addColor.html">addColor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fieldExport.html">fieldExport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fieldImport.html">fieldImport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fieldRemove.html">fieldRemove</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/licenseAndWarranty.html">License and warranty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Dogu Baran Aydogan.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/commands/diff.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
