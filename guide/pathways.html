@@ -38,7 +38,8 @@
 <h2>Definitions<a class="headerlink" href="#definitions" title="Link to this heading">¶</a></h2>
 <p>Trekker allows for a variety of pathway rules to apply anatomical constraints for fiber tracking and filtering. Before reading the rules in detail, please check the illustration below for definitions:</p>
 <figure class="align-default" id="id1">
-<a class="reference internal image-reference" href="../_images/pathways.svg"><img alt="Trekker's pathways" height="1888" src="../_images/pathways.svg" width="415" /></a>
+<a class="reference internal image-reference" href="../_images/pathways.svg"><img alt="Trekker's pathways" src="../_images/pathways.svg" style="width: 415.2px; height: 1888.8px;" />
+</a>
 <figcaption>
 <p><span class="caption-text">When a seed is provided, Trekker regards each streamline to be composed of two sides, which are called <strong>A</strong> and <strong>B</strong>.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
@@ -87,20 +88,6 @@
 </dl>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>Why stop before / at / after?</strong></p>
-<ul class="simple">
-<li><p>Trekker supports surface meshes for tracking and filtering.</p></li>
-<li><p>A surface has a 2D boundary, which requires further considerations for tractography.</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<ul class="simple">
-<li><p>Using the <strong>stop_at_entry</strong> rule, a whole-brain tractogram is obtained so that streamlines are truncated <em>exactly</em> at the white-matter gray-matter interface, defined with a surface mesh.</p></li>
-</ul>
-<p><strong>Question:</strong> What happens when the user later wants to extract a specific fiber bundle using a portion of the same surface?</p>
-<p><strong>Answer:</strong> In that case, some streamlines will follow the defined rule, but others will not. This occurs because the initial truncation places the end-point on the border with precision defined by float32 computations. Therefore, during a subsequent check, it is not guaranteed that the point will be recognized as being precisely on the surface. Providing the <em>before</em> and <em>after</em> options allows the user more flexibility for setting their rules.</p>
-</div>
 <p><strong>The rules can be further fine-tuned using the following options:</strong></p>
 <ul>
 <li><p>With <code class="docutils literal notranslate"><span class="pre">--inOrder</span></code> option is used, <cite>require_entry</cite> and <cite>require_exit</cite> rules are adhered to in the order that they are specified.</p></li>
@@ -134,16 +121,20 @@ e.g. <code class="docutils literal notranslate"><span class="pre">-p</span> <spa
 <li><p>If an image is provided followed by <code class="docutils literal notranslate"><span class="pre">pvf</span></code> and an integer, as in <code class="docutils literal notranslate"><span class="pre">img.nii</span> <span class="pre">pvf</span> <span class="pre">0</span></code>, then it is considered that the input image is 4-dimensional, where the 4th dimension contains partial volume fractions, and the provided integer indicates the volume to use for filtering. A value above zero is considered inside, and during filtering, linear interpolation is used.</p></li>
 </ol>
 </li>
-<li><p><strong>Surface files (.vtk, .gii):</strong> The use of surfaces are interpreted in four different ways:</p>
+<li><p><strong>Surface files (.vtk, .gii):</strong></p>
 <ol class="arabic simple">
-<li><p>If only the surface is provided, as in <code class="docutils literal notranslate"><span class="pre">surf.vtk</span></code>, then if the surface is closed, the rule includes the interior of the surface; otherwise, only the surface is considered.</p></li>
-<li><p>If the surface is followed by x,y,z,r notation, as in <code class="docutils literal notranslate"><span class="pre">surf.vtk</span> <span class="pre">1.2,2.4,33.2,4</span></code>, then a disc centered at x,y,z with radius r is extracted, and an open surface is generated and considered for filtering.</p></li>
-<li><p>If the surface is followed by a string and an integer, as in <code class="docutils literal notranslate"><span class="pre">surf.vtk</span> <span class="pre">label</span> <span class="pre">3</span></code>, then the surface is considered to contain a field with the provided string. The integer is used as a label, which is used for filtering. For example, a surface containing labels for different parts of the brain can be used for filtering.</p></li>
-<li><p>If the surface is defined as in <code class="docutils literal notranslate"><span class="pre">surf.vtk</span> <span class="pre">fileName</span> <span class="pre">VERT</span> <span class="pre">int</span> <span class="pre">3</span></code>, then the fileName is considered to contain labels for each VERTex. The file contains ‘int’ (integer) data type, and the filtering should only consider VERTices with label 3.</p></li>
+<li><p>Surfaces can be provided only as they are, as in <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span></code>.</p></li>
+<li><p>If the surface is followed by x,y,z,r notation, as in <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span> <span class="pre">1.2,2.4,33.2,4</span></code>, then a disc centered at x,y,z with radius r is extracted and used for the rule.</p></li>
+<li><p>If the surface is followed by a string and an integer, as in <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span> <span class="pre">label,3</span></code>, then the surface is considered to contain a field with the provided string. The integer is used as a label, which is used for filtering, e.g., a surface containing labels for different parts of the brain can be used for filtering.</p></li>
+<li><p>If the surface is defined as in <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span> <span class="pre">fileName,VERT,int,3</span></code>, then the fileName is considered to contain labels for each VERTices, the file contains <code class="docutils literal notranslate"><span class="pre">int</span></code> (integer) data type, and the filtering should only consider VERTices with label 3.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For fast filtering, Trekker first discretizes the surface meshes onto images. The default discretization resolution is 1. All the four options above can additionally provide the discretization value, which is considered to be the number that follows the input file, as in <code class="docutils literal notranslate"><span class="pre">surf.vtk</span> <span class="pre">0.4</span> <span class="pre">fileName</span> <span class="pre">VERT</span> <span class="pre">int</span> <span class="pre">3</span></code>, where 0.4 will be used to discretize the surface.</p>
+<ul class="simple">
+<li><p>For fast filtering, Trekker first discretizes the surface meshes onto images. The default discretization resolution is 1, which can be changed by proving a scalar number after the surface file is defined, as in <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span> <span class="pre">0.4</span> <span class="pre">label,3</span></code>, where 0.4 will be used to discretize the surface.</p></li>
+<li><p>If the surface is closed, it is possible exclude the interior region, and only apply the rules based on the surface mesh (boundary). This can be done by adding <code class="docutils literal notranslate"><span class="pre">2D</span></code> after the file name, as in <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span> <span class="pre">2D</span> <span class="pre">label,3</span></code>.</p></li>
+<li><p>It is possible change the place of the surface options, e.g. <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span> <span class="pre">label,3</span> <span class="pre">0.5</span> <span class="pre">2D</span></code> is same as <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">surf.vtk</span> <span class="pre">0.5</span> <span class="pre">label,3</span> <span class="pre">2D</span></code>.</p></li>
+</ul>
 </div>
 </li>
 </ul>
@@ -155,10 +146,10 @@ e.g. <code class="docutils literal notranslate"><span class="pre">-p</span> <spa
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+              <img class="logo" src="../_static/logo.png" alt="Logo of trekker"/>
             </a></p>
 <h3><a href="../index.html">Table of Contents</a></h3>
 <p class="caption" role="heading"><span class="caption-text">Guide</span></p>
@@ -206,7 +197,7 @@ e.g. <code class="docutils literal notranslate"><span class="pre">-p</span> <spa
       &#169;2024, Dogu Baran Aydogan.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |

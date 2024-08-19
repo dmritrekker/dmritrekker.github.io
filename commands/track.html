@@ -199,10 +199,12 @@ Input FOD image (.nii, .nii.gz). Trekker supports both symmetric and asymmetric 
         <td style="padding: 8px; font-weight: 500;">--skipSeed</td>
         <td style="padding: 8px;">Does not output the points that are within seed region.</td>
     </tr>
+    <!--
     <tr style="background-color: #f2f2f2;">
         <td style="padding: 8px; font-weight: 500;">--allowEdgeSeeds</td>
         <td style="padding: 8px;">Allows seeding at the edges of pathway rules. Default: false.</td>
     </tr>
+    -->
     <tr>
         <td style="padding: 8px; font-weight: 500;">--seed_trials INT</td>
         <td style="padding: 8px;">Sets the maximum number of attempts to generate streamline from the seed point. Default=1.</td>
@@ -230,10 +232,6 @@ Input FOD image (.nii, .nii.gz). Trekker supports both symmetric and asymmetric 
     <tr>
         <td style="padding: 8px; font-weight: 500;">--seed_surf_useSurfNorm</td>
         <td style="padding: 8px;">Surface normals will be used as the initial direction.</td>
-    </tr>
-    <tr style="background-color: #f2f2f2;">
-        <td style="padding: 8px; font-weight: 500;">--seed_surf_dontSeedInside</td>
-        <td style="padding: 8px;">Only the surface will be used for seeding if the input is closed.</td>
     </tr>
 </table><div class="line-block">
 <div class="line"><br /></div>
@@ -271,10 +269,6 @@ Input FOD image (.nii, .nii.gz). Trekker supports both symmetric and asymmetric 
     <tr style="background-color: #f2f2f2;">
         <td style="padding: 8px; font-weight: 500;">--inOrder</td>
         <td style="padding: 8px;">If enabled, all pathway requirements are going to be satisfied in the order that they are input to Trekker. All pathway options should be defined for pathway_A/pathway_B in order to use this option.</td>
-    </tr>
-    <tr>
-        <td style="padding: 8px; font-weight: 500;">--discRes FLOAT</td>
-        <td style="padding: 8px;">Discretization resolution for surface meshes. Default=1.</td>
     </tr>
 </table><div class="line-block">
 <div class="line"><br /></div>
@@ -323,10 +317,10 @@ Input FOD image (.nii, .nii.gz). Trekker supports both symmetric and asymmetric 
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+              <img class="logo" src="../_static/logo.png" alt="Logo of trekker"/>
             </a></p>
 <h3><a href="../index.html">Table of Contents</a></h3>
 <p class="caption" role="heading"><span class="caption-text">Guide</span></p>
@@ -369,7 +363,7 @@ Input FOD image (.nii, .nii.gz). Trekker supports both symmetric and asymmetric 
       &#169;2024, Dogu Baran Aydogan.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |

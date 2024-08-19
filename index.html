@@ -35,37 +35,8 @@
 <h1>Trekker<a class="headerlink" href="#trekker" title="Link to this heading">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>MAJOR UPDATE!</strong> We are excited to announce the release of Trekker v1.0 beta, now available for testing.</p>
-<p>This version includes significant changes and improvements.</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Powered by <a class="reference external" href="https://github.com/nibrary/nibrary">nibrary</a>, Trekker now features:</dt><dd><ul>
-<li><p>Support for surface based tracking and filtering</p></li>
-<li><p>Advanced pathway rules for filtering streamlines</p></li>
-<li><p>Subcommands to perform various tractogram operations</p></li>
-<li><p>Improved command line interface</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>While the core fiber tracking algorithm (PTT) works the same, the new version of Trekker is not compatible with the previous versions due to the above changes.</dt><dd><ul>
-<li><p><em>Remark:</em> Your previous code (script) written for earlier versions of Trekker need to be modified to work with the latest version.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Some existing features in earlier versions of Trekker are currently missing in the latest version:</dt><dd><ul>
-<li><p>Windows compatibility</p></li>
-<li><p>Python and Matlab support</p></li>
-<li><p>Exporting of a <cite>.json</cite> formatted tracking report</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-<p>Enjoy the new Trekker!</p>
+<p>August 19<sup>th</sup>, 2024</p>
+<p><strong>UPDATE:</strong> We are excited to announce the first release candidate. Trekker v1.0.0-rc1 includes bug fixes and improvements, particularly in surface handling. See below for a list of major changes.</p>
 </div>
 <p>Trekker offers state-of-the-art tractography tools to study the structural connectivity of the brain. Trekker aims to improve fiber tracking pipelines by offering features like:</p>
 <ul class="simple">
@@ -97,7 +68,6 @@
 <p><strong>Step 2: Modify and run the build script</strong></p>
 <ul class="simple">
 <li><p><strong>For Linux:</strong> Edit <code class="docutils literal notranslate"><span class="pre">build_Linux.sh</span></code></p></li>
-<li><p><strong>For Windows:</strong> Edit <code class="docutils literal notranslate"><span class="pre">build_Windows.bat</span></code></p></li>
 </ul>
 </section>
 </section>
@@ -194,6 +164,48 @@
 <span class="w">          </span>OUT_TRACK.vtk
 </pre></div>
 </div>
+</section>
+<section id="release-notes-for-trekker-v1-0-0-rc1">
+<h2>Release notes for Trekker-v1.0.0-rc1<a class="headerlink" href="#release-notes-for-trekker-v1-0-0-rc1" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Bug fix 1</strong>: Fixed a bug in <cite>track</cite> where streamlines were not stopped as expected when a pathway rule was set. This issue occurred because <cite>track</cite> allowed stop options unsupported by nibrary. The fix involved providing nibrary with the necessary stopping features during tracking.</p></li>
+<li><p><strong>Bug fix 2</strong>: (<em>Thanks to John Kruper for spotting this one!</em>) Fixed a bug in <cite>track</cite> related to the computation of data support in parallel transport tracking. Previously, the contribution from the last part of the probe was reused as the first part’s contribution in the next iteration to speed up computation. This fix ensures the data support contribution is computed only once for the first part and reused for other candidate probes. Although this bug has existed since v0.5, it should not significantly affect results with default probe quality (4) and length (0.25 x voxel size). However, it may impact streamlines computed with longer probe lengths and lower quality probes.</p></li>
+<li><p><strong>Bug fix 3</strong>: Fixed a bug affecting both <cite>track</cite> and <cite>filter</cite>, where streamlines were not following the <cite>require_end_inside</cite> rule. The issue occured because this rule was commented out during a part of the development, and it was forgotten to be restored.</p></li>
+<li><p><strong>Improvement 1</strong>: Reorganized the code to harmonize the handling of segment-surface interactions.</p></li>
+<li><p><strong>Improvement 2</strong>: Switched to the <em>double</em> datatype in certain functions to better manage edge cases.</p></li>
+</ul>
+<p>With the beta release (May 21<sup>st</sup>, 2024), Trekker has gone through significant changes:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Powered by <a class="reference external" href="https://github.com/nibrary/nibrary">nibrary</a>, Trekker now features:</dt><dd><ul>
+<li><p>Support for surface based tracking and filtering</p></li>
+<li><p>Advanced pathway rules for filtering streamlines</p></li>
+<li><p>Subcommands to perform various tractogram operations</p></li>
+<li><p>Improved command line interface</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>While the core fiber tracking algorithm (PTT) works the same, the new version of Trekker is not compatible with the previous versions due to the above changes.</dt><dd><ul>
+<li><p><em>Remark:</em> Your previous code (script) written for earlier versions of Trekker need to be modified to work with the latest version.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Some existing features in earlier versions of Trekker are currently missing in the latest version:</dt><dd><ul>
+<li><p>Windows compatibility</p></li>
+<li><p>Python and Matlab support</p></li>
+<li><p>Exporting of a <cite>.json</cite> formatted tracking report</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Enjoy the new Trekker!</p>
+</div></blockquote>
 <hr class="docutils" />
 <div class="toctree-wrapper compound">
 </div>
@@ -209,10 +221,10 @@
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="#">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="_static/logo.png" alt="Logo of trekker"/>
             </a></p>
 <h3><a href="#">Table of Contents</a></h3>
 <p class="caption" role="heading"><span class="caption-text">Guide</span></p>
@@ -255,7 +267,7 @@
       &#169;2024, Dogu Baran Aydogan.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
