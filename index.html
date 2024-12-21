@@ -141,8 +141,12 @@
         <td style="padding: 8px;">Adds a new vtk field with values read from a file (.vtk only).</td>
     </tr>
     <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #000;"><strong><a href="../commands/fieldRemove.html">fieldRemove</a></strong></td>
-        <td style="padding: 8px; border-bottom: 1px solid #000;">Removes a vtk field from a tractogram (.vtk only).</td>
+        <td style="padding: 8px;"><strong><a href="../commands/fieldRemove.html">fieldRemove</a></strong></td>
+        <td style="padding: 8px;">Removes a vtk field from a tractogram (.vtk only).</td>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+        <td style="padding: 8px; border-bottom: 1px solid #000;"><strong><a href="../commands/dMRI.html">dMRI</a></strong></td>
+        <td style="padding: 8px; border-bottom: 1px solid #000;">dMRI commands</td>
     </tr>
 </table></section>
 <section id="examples">
@@ -177,10 +181,11 @@
 <li><p><strong>Bug fix 1</strong>: Fixed a bug which prevented using negative labels for selecting surface ROIs.</p></li>
 <li><p><strong>Bug fix 2</strong>: Fixed a bug in <cite>track2surf</cite> that was introduced as a result of the major updates in rc1, which led to the saving of wrong field information for mapped streamlines on surface meshes.</p></li>
 <li><p><strong>Improvement 1</strong>: Added a new command <cite>info</cite>, which prints basic information about input files.</p></li>
-<li><p><strong>Improvement 2</strong>: Added option to flip surface normals when defining pathway rules.</p></li>
-<li><p><strong>Improvement 3</strong>: Added option to use only the surface boundary when the provided mesh is closed for defining pathway rules.</p></li>
-<li><p><strong>Improvement 4</strong>: (<em>As a solution to the nibrary issue submitted by Xi Zhu</em>) Added option to use ascii (text) files for defining seed density for fiber tracking with surface-based seeding.</p></li>
-<li><p><strong>Improvement 5</strong>: Random seeds are now sampled using an approach based on cumulative distribution function instead of rejection sampling.</p></li>
+<li><p><strong>Improvement 2</strong>: Added a new command <cite>dMRI recon tran_shi_2015</cite>, which fits dMRI data onto a compartment model proposed in <a class="reference internal" href="commands/dMRI.html#transhi2015" id="id1"><span>[TranShi2015]</span></a>.</p></li>
+<li><p><strong>Improvement 3</strong>: Added option to flip surface normals when defining pathway rules.</p></li>
+<li><p><strong>Improvement 4</strong>: Added option to use only the surface boundary when the provided mesh is closed for defining pathway rules.</p></li>
+<li><p><strong>Improvement 5</strong>: (<em>As a solution to the nibrary issue submitted by Xi Zhu</em>) Added option to use ascii (text) files for defining seed density for fiber tracking with surface-based seeding.</p></li>
+<li><p><strong>Improvement 6</strong>: Random seeds are now sampled using an approach based on cumulative distribution function instead of rejection sampling.</p></li>
 </ul>
 </div></blockquote>
 </section>
@@ -270,6 +275,7 @@
 <li class="toctree-l1"><a class="reference internal" href="commands/fieldExport.html">fieldExport</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/fieldImport.html">fieldImport</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/fieldRemove.html">fieldRemove</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/dMRI.html">dMRI</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">About</span></p>
 <ul>
