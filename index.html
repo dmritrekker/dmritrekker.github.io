@@ -57,7 +57,30 @@
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
 <section id="option-1-stand-alone-executables">
 <h3>Option 1: Stand-alone executables<a class="headerlink" href="#option-1-stand-alone-executables" title="Link to this heading">¶</a></h3>
-<p>Please find the stand-alone executables for Linux, Windows and macOS under <a class="reference external" href="https://github.com/dmritrekker/trekker/releases">Releases</a>.</p>
+<p>Download the appropriate stand-alone executable for your operating system:</p>
+<ul class="simple">
+<li><p><strong>Linux:</strong> <a class="reference download external" download="" href="https://github.com/dmritrekker/trekker/releases/download/v1.0.0-rc3/linux_binary.zip"><code class="xref download docutils literal notranslate"><span class="pre">linux_binary.zip</span></code></a></p></li>
+<li><p><strong>macOS:</strong> <a class="reference download external" download="" href="https://github.com/dmritrekker/trekker/releases/download/v1.0.0-rc3/macOS-universal_binary.zip"><code class="xref download docutils literal notranslate"><span class="pre">macOS-universal_binary.zip</span></code></a></p></li>
+<li><p><strong>Windows:</strong> <a class="reference download external" download="" href="https://github.com/dmritrekker/trekker/releases/download/v1.0.0-rc3/windows_binary.zip"><code class="xref download docutils literal notranslate"><span class="pre">windows_binary.zip</span></code></a></p></li>
+</ul>
+<p>After downloading and extracting the archive, you can run the executable.</p>
+<p><strong>Testing:</strong></p>
+<ul class="simple">
+<li><p>Download and extract the datasets and scripts we prepared for testing by clicking here, <a class="reference external" href="https://github.com/dmritrekker/trekker/releases/download/v1.0.0-rc3/tests.zip">tests.zip</a>.</p></li>
+<li><p>Copy paste your executable under the <code class="docutils literal notranslate"><span class="pre">testScripts</span></code> folder.</p></li>
+<li><p>Run the provided test script for your operating system.</p></li>
+</ul>
+<p><strong>Troubleshooting:</strong></p>
+<ul class="simple">
+<li><p><em>permission denied error</em>: If you encounter this when trying to run the executable on Linux or macOS, open a terminal, navigate to the directory where you extracted the file, and run the following command:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>&lt;executable<span class="w"> </span>name&gt;
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;executable</span> <span class="pre">name&gt;</span></code> with the actual name of the executable file (e.g., <code class="docutils literal notranslate"><span class="pre">trekker_linux</span></code> or <code class="docutils literal notranslate"><span class="pre">trekker_macOS</span></code>).  Then, try running the executable again.</p>
+<ul class="simple">
+<li><p><em>macOS errors related to llvm and libomp</em>: If you encounter errors related to missing OpenMP or libomp, please see the provided test script for macOS in this <a class="reference external" href="https://github.com/dmritrekker/trekker/blob/main/tests/testScripts/test_macOS.sh">link</a>, which gives an example for how to set these paths and install dependencies if needed.</p></li>
+</ul>
 </section>
 <section id="option-2-building-from-source">
 <h3>Option 2: Building from source<a class="headerlink" href="#option-2-building-from-source" title="Link to this heading">¶</a></h3>
